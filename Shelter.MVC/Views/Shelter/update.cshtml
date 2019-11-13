@@ -1,0 +1,18 @@
+@model Shelter.Shared.Animal;
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<p>
+Are you sure you want to update @Model.Name ?
+</p>
+
+<form asp-controller="Shelter" asp-action="DoUpdate">
+    <input asp-for="Id" type="hidden">
+    <input type="text" name="name" value=@Model.Name>
+
+    <input type="submit" value="Confirm change">
+</form>
+
+<a asp-controller="Shelter" asp-action="index"><button type="button">Go back</button></a>
