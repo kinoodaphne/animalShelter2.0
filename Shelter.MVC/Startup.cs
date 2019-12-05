@@ -1,18 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Shelter.MVC.Models;
-using MySql.Data.EntityFrameworkCore;
 using Shelter.MVC.Context;
 using Microsoft.EntityFrameworkCore;
-using System.Data.SqlClient;
 
 namespace Shelter.MVC
 {
@@ -29,7 +21,12 @@ namespace Shelter.MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<AnimalContext>(options => options.UseSqlite(Configuration.GetConnectionString("AnimalContext")));
+            services.AddDbContext<AnimalContext>(
+                options => options.UseMySQL(Configuration.GetConnectionString("AnimalContext"))
+            );
+            // In onze appsettings.json gaat onze connection string komen.
+            // In de "ConnectionStrings" gaat we onze connection strings schrijven.
+            // Nu staat er een default string in.
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
