@@ -9,4 +9,11 @@
     <ProjectReference Include="..\Shelter.Shared\Shelter.Shared.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.18" />
+    <PackageReference Include="System.Data.Entity.Repository" Version="2.0.0.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.0" />
+  </ItemGroup>
+
 </Project>

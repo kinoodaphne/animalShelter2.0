@@ -8,6 +8,11 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Shelter.MVC.Models;
+using MySql.Data.EntityFrameworkCore;
+using Shelter.MVC.Context;
+using Microsoft.EntityFrameworkCore;
+using System.Data.SqlClient;
 
 namespace Shelter.MVC
 {
@@ -24,6 +29,7 @@ namespace Shelter.MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<AnimalContext>(options => options.UseSqlite(Configuration.GetConnectionString("AnimalContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
