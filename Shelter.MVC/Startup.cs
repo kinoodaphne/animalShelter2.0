@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shelter.MVC.Context;
+using Shelter.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace Shelter.MVC
@@ -21,12 +22,12 @@ namespace Shelter.MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<AnimalContext>(
-                options => options.UseMySQL(Configuration.GetConnectionString("AnimalContext"))
-            );
+            services.AddDbContext<AnimalContext>(options => options.UseSqlite(Configuration.GetConnectionString("AnimalContext")));
             // In onze appsettings.json gaat onze connection string komen.
             // In de "ConnectionStrings" gaat we onze connection strings schrijven.
             // Nu staat er een default string in.
+            services.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
+            //Initialiseerd onze databank en populate deze ook ineens met meegegeven data van de DBinitializer
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
