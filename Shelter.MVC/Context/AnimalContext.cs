@@ -11,7 +11,7 @@ namespace Shelter.MVC.Context {
 
         }
         public DbSet<Animal> Animals { get; set; }
-        public DbSet<Shelter> Shelters { get; set; }
+        public DbSet<Shelter.Shared.Shelter> Shelters { get; set; }
         public DbSet<Employee> Employees { get; set; }
     }
 }
