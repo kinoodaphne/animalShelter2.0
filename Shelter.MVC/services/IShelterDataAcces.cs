@@ -4,7 +4,7 @@ using Shelter.Shared;
 using Microsoft.EntityFrameworkCore;
 using Shelter.MVC.Context;
 
-namespace MyAspMvc
+namespace Shelter.MVC
 {
   public interface IShelterDataAccess
   {
