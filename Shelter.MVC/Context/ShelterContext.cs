@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Shelter.Shared;
 
 namespace Shelter.MVC.Context {
-    public class AnimalContext : DbContext{
-        public AnimalContext(DbContextOptions<AnimalContext> options) : base(options){
+    public class ShelterContext : DbContext{
+        public ShelterContext(DbContextOptions<ShelterContext> options) : base(options){
 
         }
         public DbSet<Animal> Animals { get; set; }

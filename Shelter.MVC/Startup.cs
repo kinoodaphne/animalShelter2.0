@@ -22,7 +22,7 @@ namespace Shelter.MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<AnimalContext>(options => options.UseSqlite(Configuration.GetConnectionString("AnimalContext")));
+            services.AddDbContext<ShelterContext>(options => options.UseSqlite(Configuration.GetConnectionString("ShelterContext")));
             // In onze appsettings.json gaat onze connection string komen.
             // In de "ConnectionStrings" gaat we onze connection strings schrijven.
             // Nu staat er een default string in.
