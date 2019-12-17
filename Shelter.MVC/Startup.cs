@@ -8,7 +8,8 @@ using Shelter.MVC.Context;
 using Shelter.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Shelter.MVC.options;
 
 namespace Shelter.MVC
 {
@@ -26,9 +27,10 @@ namespace Shelter.MVC
         {
             services.AddControllersWithViews();
             var optionbuilder = services.AddDbContext<ShelterContext>(options => options.UseSqlite(Configuration.GetConnectionString("ShelterContext")));
-            services.AddMvcCore()
-            .AddApiExplorer();
-            services.AddSwaggerGen();
+            services.AddMvc();
+            services.AddSwaggerGen(x => {
+                x.SwaggerDoc("v1", new OpenApiInfo{Title = "Shelter API", Version = "v1"});
+            });
             // In onze appsettings.json gaat onze connection string komen.
             // In de "ConnectionStrings" gaat we onze connection strings schrijven.
             // Nu staat er een default string in.
@@ -45,18 +47,25 @@ namespace Shelter.MVC
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSwagger();
-            app.UseSwaggerUI();
+
+            var swaggerOption = new SwaggerOptions();
+            Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOption);
+
+            app.UseSwagger(options => {
+                options.RouteTemplate = swaggerOption.JsonRoute;
+            });
+            app.UseSwaggerUI(option => {
+                option.SwaggerEndpoint(swaggerOption.UIEndPoint, swaggerOption.Description);
+            });
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            /*app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
@@ -66,7 +75,7 @@ namespace Shelter.MVC
                 endpoints.MapControllerRoute(
                     name: "api",
                     pattern: "{controller=Api}/{action=Shelter}/{id?}");
-            });
+            });*/
         }
     }
 }

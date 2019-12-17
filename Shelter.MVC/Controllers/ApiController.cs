@@ -11,7 +11,7 @@ using Shelter.Shared;
 
 namespace Shelter.MVC.Controllers
 {
-    [Route("/api/shelters")]
+    [Route("/v1/shelters")]
     public class ApiController : Controller
     {
         private readonly IShelterDataAccess _dataAccess;
