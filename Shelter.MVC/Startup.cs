@@ -53,29 +53,27 @@ namespace Shelter.MVC
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            var swaggerOption = new SwaggerOptions();
-            Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOption);
-
-            app.UseSwagger(options => {
-                options.RouteTemplate = swaggerOption.JsonRoute;
-            });
+            app.UseSwagger();
             app.UseSwaggerUI(option => {
-                option.SwaggerEndpoint(swaggerOption.UIEndPoint, swaggerOption.Description);
+                option.SwaggerEndpoint("swagger/v1/swagger.json", "shelter api");
+                option.RoutePrefix = string.Empty;
             });
 
             app.UseRouting();
 
-            /*app.UseAuthorization();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                /*
                 endpoints.MapControllerRoute(
                     name: "api",
                     pattern: "{controller=Api}/{action=Shelter}/{id?}");
-            });*/
+                */
+            });
         }
     }
 }
