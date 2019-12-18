@@ -12,9 +12,9 @@ namespace Shelter.Shared
 
   public class DatabaseInitializer : IDatabaseInitializer
   {
-    private AnimalContext _context;
+    private ShelterContext _context;
     private ILogger<DatabaseInitializer> _logger;
-    public DatabaseInitializer(AnimalContext context, ILogger<DatabaseInitializer> logger)
+    public DatabaseInitializer(ShelterContext context, ILogger<DatabaseInitializer> logger)
     {
       _context = context;
       _logger = logger;
