@@ -74,6 +74,8 @@ namespace Shelter.MVC
                     pattern: "{controller=Api}/{action=Shelter}/{id?}");
                 */
             });
+
+            databaseInitializer.Initialize();
         }
     }
 }
