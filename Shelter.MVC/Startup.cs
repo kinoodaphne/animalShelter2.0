@@ -34,11 +34,12 @@ namespace Shelter.MVC
             // In onze appsettings.json gaat onze connection string komen.
             // In de "ConnectionStrings" gaat we onze connection strings schrijven.
             // Nu staat er een default string in.
-            services.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
+            
+            //services.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
             //Initialiseerd onze databank en populate deze ook ineens met meegegeven data van de DBinitializer
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDatabaseInitializer databaseInitializer)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)//, IDatabaseInitializer databaseInitializer)
         {
 
             if (env.IsDevelopment())
@@ -75,7 +76,7 @@ namespace Shelter.MVC
                 */
             });
 
-            databaseInitializer.Initialize();
+            // databaseInitializer.Initialize();
         }
     }
 }
