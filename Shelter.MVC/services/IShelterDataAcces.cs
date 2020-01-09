@@ -14,7 +14,8 @@ namespace Shelter.MVC
 
     IEnumerable<Animal> GetAnimals(int shelterId);
     Animal GetAnimalByShelterAndId(int shelterId, int animalId);
-  }
+        Shared.Shelter AddShelter(Shared.Shelter shelter);
+    }
 
   public class ShelterDataAccess : IShelterDataAccess
   {
@@ -55,5 +56,12 @@ namespace Shelter.MVC
         return _context.Animals
         .FirstOrDefault(x => x.Id == shelterId && x.Id == animalId);
     }
-  }
+
+        public Shared.Shelter AddShelter(Shared.Shelter shelter)
+        {
+            _context.Shelters.Add(shelter);
+            _context.SaveChanges();
+            return shelter;
+        }
+    }
 }
