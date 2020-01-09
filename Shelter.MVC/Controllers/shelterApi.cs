@@ -61,6 +61,7 @@ namespace Shelter.MVC.Controllers.V1
         }
         #endregion
 
+        #region Create
         [HttpPut("create")]
         public IActionResult create(Shelter.Shared.Shelter name)
         {
@@ -68,6 +69,7 @@ namespace Shelter.MVC.Controllers.V1
             item =  _dataAccess.AddShelter(item);
             return Created("", item.Id); 
         }
+        #endregion
 
     }
 }
