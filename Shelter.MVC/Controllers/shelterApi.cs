@@ -59,17 +59,76 @@ namespace Shelter.MVC.Controllers.V1
             var animal = _dataAccess.GetAnimalByShelterAndId(shelterId, animalId);
             return animal == default(Shelter.Shared.Animal) ? (IActionResult)NotFound() : Ok(animal);
         }
-        #endregion
 
-        #region Create
-        [HttpPut("create")]
-        public IActionResult create(Shelter.Shared.Shelter name)
+        [HttpGet("{shelterId}/cats")]
+        public IActionResult GetAllCatsFromShelter(int id)
         {
-            Shared.Shelter item = new Shared.Shelter() { Name = name.Name };
-            item =  _dataAccess.AddShelter(item);
-            return Created("", item.Id); 
+            var cats = _dataAccess.GetCatsByShelter(id); ;
+            return Ok(cats);
         }
+
+        [HttpGet("{shelterId}/dogs")]
+        public IActionResult GetAllDogsFromShelter(int id)
+        {
+            var dogs = _dataAccess.GetDogsByShelter(id); ;
+            return Ok(dogs);
+        }
+
+        [HttpGet("{shelterId}/others")]
+        public IActionResult GetAllOtherFromShelter(int id)
+        {
+            var others = _dataAccess.GetOthersByShelter(id);
+            return Ok(others);
+        }
+
         #endregion
 
+        #region Delete
+
+        [HttpDelete("{shelterId}/animals/{animalId}")]
+        public IActionResult Delete(int shelterId, int animalId)
+        {
+            _dataAccess.removeAnimal(shelterId, animalId);
+            return Ok();
+        }
+
+#endregion
+
+#region Put
+
+        [HttpPost("create")]
+        public IActionResult create([FromBody]Shared.Shelter name)
+        {
+            
+            name =  _dataAccess.AddShelter(name);
+            return Created("", name.Id); 
+        }
+#endregion
+
+#region Post
+    
+        [HttpPost("{shelterId}/cat")]
+        public ActionResult CreateCat(int shelterId, [FromBody]Cat _animal)
+        {
+            _dataAccess.addCat(_animal);
+            return Created("", _animal);
+           
+        }
+
+        [HttpPost("{shelterId}/dog")]
+        public ActionResult CreateDog(int shelterId, [FromBody]Dog _animal)
+        {
+            _dataAccess.addDog(_animal);
+            return Created("", _animal);
+        }
+
+        [HttpPost("{shelterId}/other")]
+        public ActionResult CreateOther(int shelterId, [FromBody]Other _animal)
+        {
+            _dataAccess.addOther(_animal);
+            return Created("", _animal);
+        }
+        
+#endregion
     }
 }
