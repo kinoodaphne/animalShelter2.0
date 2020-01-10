@@ -1,7 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+  <!--
+  library staat er omdat je een library maakt dat een programma gaat gebruiken 
+  dit programma is de API eigenlijk een DDL (dynamic linked library)
+   -->
+    <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 

@@ -25,6 +25,10 @@ namespace Shelter.MVC.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<bool>("IsChecked")
                         .HasColumnType("INTEGER");
 
@@ -48,6 +52,8 @@ namespace Shelter.MVC.Migrations
                     b.HasIndex("ShelterId");
 
                     b.ToTable("Animals");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Animal");
                 });
 
             modelBuilder.Entity("Shelter.Shared.Employee", b =>
@@ -85,6 +91,36 @@ namespace Shelter.MVC.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Shelters");
+                });
+
+            modelBuilder.Entity("Shelter.Shared.Cat", b =>
+                {
+                    b.HasBaseType("Shelter.Shared.Animal");
+
+                    b.Property<bool>("Declawed")
+                        .HasColumnType("INTEGER");
+
+                    b.HasDiscriminator().HasValue("Cat");
+                });
+
+            modelBuilder.Entity("Shelter.Shared.Dog", b =>
+                {
+                    b.HasBaseType("Shelter.Shared.Animal");
+
+                    b.Property<bool>("Barker")
+                        .HasColumnType("INTEGER");
+
+                    b.HasDiscriminator().HasValue("Dog");
+                });
+
+            modelBuilder.Entity("Shelter.Shared.Other", b =>
+                {
+                    b.HasBaseType("Shelter.Shared.Animal");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.HasDiscriminator().HasValue("Other");
                 });
 
             modelBuilder.Entity("Shelter.Shared.Animal", b =>

@@ -10,14 +10,22 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Shelter.MVC.options;
+using IHostingEnvironment = Microsoft.Extensions.Hosting.IHostingEnvironment;
 
 namespace Shelter.MVC
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)//IConfiguration configuration)
         {
-            Configuration = configuration;
+            // Configuration = configuration;
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -34,11 +42,12 @@ namespace Shelter.MVC
             // In onze appsettings.json gaat onze connection string komen.
             // In de "ConnectionStrings" gaat we onze connection strings schrijven.
             // Nu staat er een default string in.
-            services.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
+            
+            //services.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
             //Initialiseerd onze databank en populate deze ook ineens met meegegeven data van de DBinitializer
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IDatabaseInitializer databaseInitializer)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)//, IDatabaseInitializer databaseInitializer)
         {
 
             if (env.IsDevelopment())
@@ -74,6 +83,8 @@ namespace Shelter.MVC
                     pattern: "{controller=Api}/{action=Shelter}/{id?}");
                 */
             });
+
+            // databaseInitializer.Initialize();
         }
     }
 }
