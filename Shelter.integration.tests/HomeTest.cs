@@ -19,7 +19,7 @@ namespace Shelter.integration.tests
         }
 
         [Fact]
-        public async void Test1()
+        public async void DoesIndexExist()
         {
             var response = await _client.GetAsync("/index.html");
             response.EnsureSuccessStatusCode();
